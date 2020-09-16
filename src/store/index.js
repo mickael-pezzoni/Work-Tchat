@@ -46,6 +46,10 @@ export default new Vuex.Store({
     SET_MEMBERVISIBLE(state, status) {
       state.memberVisible = status;
     },
+    SOCKET_MEMBERUPDATE(state, member) {
+      let index = state.members.findIndex(_elt => _elt.uuid === member.uuid);
+      Vue.set(state.members, index, member)
+    },
     SOCKET_MEMBERDISCONNECT(state, member) {
       let index = state.members.findIndex(_m => _m.uuid === member.uuid);
       if (index !== -1) {
@@ -90,9 +94,15 @@ export default new Vuex.Store({
     SOCKET_allMember(context, members) {
       context.commit('SOCKET_SETALLMEMBERS', members);
     },
+    SOCKET_memberUpdate(context, member) {
+      context.commit('SOCKET_MEMBERUPDATE', member);
+    },
+    SOCKET_myUpdate(context, member) {
+      context.commit('SOCKET_MEMBERUPDATE', member);
+    },
     setMemberVisible(context, status) {
       context.commit('SET_MEMBERVISIBLE', status);
-    }
+    },
   },
   modules: {
   }

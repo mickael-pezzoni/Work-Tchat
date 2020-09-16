@@ -1,7 +1,7 @@
 <template>
   <div class="tchat flex">
     <transition name="fade">
-      <Members v-if="getMemberVisible" :members="getMember" />
+      <Members v-if="getMemberVisible" />
     </transition>
     <TchatBox />
   </div>
@@ -17,6 +17,9 @@ export default {
   components: {
     Members,
     TchatBox,
+  },
+  updated() {
+    console.log(this.getMember);
   },
   created() {
     this.$socket.emit("memberJoin", this.getPseudo);

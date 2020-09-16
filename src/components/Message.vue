@@ -31,6 +31,7 @@ img {
 .msgInfo {
   color: gold;
   font-weight: bold;
+  font-size: 13px;
 }
 .message {
     margin: 4px 0 4px 0;

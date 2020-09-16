@@ -9,9 +9,9 @@
       v-model="msg.msg"
       placeholder="Message"
     />
-    <button class="msg_send_btn" type="button" @click="sendMsg()">
+<!--     <button class="msg_send_btn" type="button" @click="sendMsg()">
       <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-    </button>
+    </button> -->
   </div>
 </template>
 <script>

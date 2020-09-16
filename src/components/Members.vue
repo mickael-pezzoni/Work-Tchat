@@ -2,7 +2,7 @@
   <div class="members">
     <ul>
       <transition-group tag="p" name="bounce">
-        <li class="member_item" v-for="member in members" :key="member.uuid">
+        <li class="member_item" v-for="member in getMember" :key="member.uuid">
           <!--         <span class="connected"></span>
           -->
           {{member.name}}
@@ -12,9 +12,15 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "Members",
-  props: ["members"],
+  computed: {
+    ...mapGetters(['getMember'])
+  },
+  updated() {
+    console.log(this.getMember);
+  }
 };
 </script>
 <style scoped>
