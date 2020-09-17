@@ -1,6 +1,14 @@
 <template>
   <div class="tool">
-    <p id="pseudo">{{pseudo}}</p>
+    <div class="simleyBox" v-show="smileyOpen">
+      <ul id="smileyList" class="flex">
+        <li @click="addSmiley(smiley)" v-for="smiley in smileys" :key="smiley">{{smiley}}</li>
+      </ul>
+    </div>
+    <div class="flex flex_content">
+      <p id="pseudo">{{pseudo}}</p>
+      <button id="smileyBtn" @click="smileyOpen = !smileyOpen">😃</button>
+    </div>
     <input
       type="text"
       class="write_msg"
@@ -9,19 +17,22 @@
       v-model="msg.msg"
       placeholder="Message"
     />
-<!--     <button class="msg_send_btn" type="button" @click="sendMsg()">
+    <!--     <button class="msg_send_btn" type="button" @click="sendMsg()">
       <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-    </button> -->
+    </button>-->
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
 import { uuid } from "vue-uuid"; // Import uuid
+import { SMILEY } from "../assets/smiley";
 
 export default {
   name: "Tool",
   data() {
     return {
+      smileys: SMILEY,
+      smileyOpen: false,
       msg: {
         msg: "",
         member: this.pseudo,
@@ -34,6 +45,9 @@ export default {
     ...mapState(["pseudo"]),
   },
   methods: {
+    addSmiley(e) {
+      this.msg.msg += e;     
+    },
     sendMsg() {
       let newMsg = {
         msg: this.msg.msg,
@@ -58,6 +72,36 @@ input {
   font-size: 15px;
   min-height: 48px;
   width: 100%;
+}
+#tool {
+  text-align: right;
+}
+.simleyBox {
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: inline-block;
+  background: rgba(143, 143, 143, 0.3) none repeat scroll 0 0;
+  width: 300px;
+  height: 200px;
+  z-index: 2;
+}
+#smileyBtn {
+  font-size: 25px;
+}
+#smileyList {
+  list-style: none;
+  flex-wrap: wrap;
+  padding: 0px;
+}
+#smileyList li {
+  font-size: 20px;
+  cursor: pointer;
+}
+#smileyList li:hover {
+  background-color: white;
+}
+.flex_content {
+  justify-content: space-between;
 }
 .msg_send_btn {
   background: #05728f none repeat scroll 0 0;
